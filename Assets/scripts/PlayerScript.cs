@@ -10,6 +10,10 @@ public class PlayerScript : MonoBehaviour
     public float speed;
 
     public Text score;
+    public Text winText;
+    public Text livesText;
+
+    private int Lives = 3;
 
     private int scoreValue = 0;
 
@@ -18,6 +22,8 @@ public class PlayerScript : MonoBehaviour
     {
         rd2d = GetComponent<Rigidbody2D>();
         score.text = scoreValue.ToString();
+        livesText.text = "Lives: " + Lives.ToString();
+        
     }
 
     // Update is called once per frame
@@ -39,8 +45,26 @@ public class PlayerScript : MonoBehaviour
             scoreValue += 1;
             score.text = scoreValue.ToString();
             Destroy(collision.collider.gameObject);
+            SetscoreValue();
         }
-
+    }
+    void SetscoreValue()
+    {
+        if (scoreValue >=8)
+        {
+            winText.text = "You Win Milan Curlej's Game! ";
+        }
+        if (scoreValue == 4)
+        {
+            transform.position = new Vector3(70.0f, 0.0f, 0.0f); 
+        }
+    }
+    void SetLives()
+    {
+        if (Lives <=0)
+        {
+            Destroy(this);
+        }
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
